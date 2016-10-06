@@ -1,7 +1,7 @@
 {
-  "name": "mc-url-shortener",
+  "name": "mc-image-search",
   "version": "1.0.0",
-  "description": "A url shortener",
+  "description": "Google image search microservice",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -12,6 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.0",
-    "mongodb": "^2.2.10"
+    "fetch": "^1.1.0",
+    "mongodb": "^2.2.10",
+    "whatwg-fetch": "^1.0.0"
   }
 }

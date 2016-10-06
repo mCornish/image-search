@@ -1,2 +1,2 @@
-# URL Shortener
-A URL shortener. Available at [mc-short.herokuapp.com](http://mc-short.herokuapp.com).
+# Image Search Microservice
+A Google image search Express microservice. Available at [mcsearch.herokuapp.com](http://mcsearch.herokuapp.com).
