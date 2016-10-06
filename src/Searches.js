@@ -12,7 +12,8 @@ const populateDb = require('./populate-db');
 const API_KEY = 'AIzaSyAUNNcfbS7-gf2hxJ1jt-LVIDU0wNuTjMY';
 const ENGINE_ID = '002380537691482816554:nghhnm458ec';
 const NUM_RESULTS = 10;
-const REQUEST_BASE = `https://www.googleapis.com/customsearch/v1?cx=${ENGINE_ID}&num=${NUM_RESULTS}&searchType=image&key=${API_KEY}&q=`;
+const FIELDS = 'items(link,image/thumbnailLink,snippet)';
+const REQUEST_BASE = `https://www.googleapis.com/customsearch/v1?cx=${ENGINE_ID}&num=${NUM_RESULTS}&searchType=image&fields=${FIELDS}&key=${API_KEY}&q=`;
 
 const _getResults = query => {
     const requestUrl = encodeURI(REQUEST_BASE + query);
@@ -35,8 +36,15 @@ exports.addOne = (db, req, res) => {
                         return response.json();
                     })
                     .then(json => {
-                        console.log(json);
-                        res.send(json);
+                        // Reformat JSON before returning
+                        const result = json.items.map(item => {
+                            return {
+                                "snippet": item.snippet,
+                                "thumbnail": item.image.thumbnailLink,
+                                "url": item.link
+                            };
+                        });
+                        res.send(result);
                     })
                     .catch(ex => {
                         console.log('ERROR: ', ex);
