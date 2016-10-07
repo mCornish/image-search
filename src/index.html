@@ -1,16 +1,20 @@
 <html>
     <head>
-        <title>URL Shortener</title>
+        <title>Image Search</title>
         <link rel="stylesheet" type="text/css" href="main.css">
     </head>
     <body>
         <main>
-            <h1>URL Shortener</h1>
-            <p>Visit the endpoint <em>/new/[YOUR_URL_HERE]</em> to recieve a shortened url..</p>
-            <h2>Example input:</h2>
-            <p>https://mcshort.herokuapp.com/new/http://mikecornish.net</p>
-            <h2>Example output:</h2>
-            <p>{"original_url":"mikecornish.net","short_url":"http://mc-short.herokuapp.com/5338200d"}</p>
+            <h1>Image Search</h1>
+            <p>Perform a Google image search and see past searches.</p>
+            <h2>Example search input:</h2>
+            <a href="https://mcsearch.herokuapp.com/marvel">mcsearch.herokuapp.com/marvel</p></a>
+            <h2>Example search output:</h2>
+            <p>[{"snippet":"The Marvel Universe",<br>"thumbnail":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS4gB39oO_z6DKy0cu2mjR7GovNvmylyFLseI59yN64VfNpNHO1GBvc6SL3",<br>"url":"http://vignette1.wikia.nocookie.net/marveldatabase/images/e/e1/The_Marvel_Universe.png/revision/latest?cb=20110513164401"}...]</p>
+            <h2>Example history input:</h2>
+            <a href="https://mcsearch.herokuapp.com/recent">mcsearch.herokuapp.com/recent</p></a>
+            <h2>Example history output:</h2>
+            <p>[{"term":"marvel","created_at":"2016-10-07T18:11:15.377Z"}...]</p>
         </main>
         <footer>
             <a href="http://mikecornish.net" target="_blank">
