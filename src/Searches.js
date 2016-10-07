@@ -1,9 +1,7 @@
 const mongo = require('mongodb');
 const MongoClient = mongo.MongoClient;
-// const server = new mongo.Server('localhost', 27017, {auto_reconnect: true});
-// const db = new mongo.Db('urlsdb', server);
 //const MONGO_URL = process.env.MONGOLAB_URI;
-const MONGO_URL = '127.0.0.1:54137';
+const MONGO_URL = 'localhost:27017/image-search-db';
 
 const fetch = require('node-fetch');
 
@@ -58,29 +56,15 @@ exports.addOne = (db, req, res) => {
 }
 
 exports.findRecent = (db, req, res) => {
-    const url = req.params[0];
-    db.collection('urls', (err, collection) => {
-        const newUrl = {
-            "original_url": url,
-            "created_at": new Date() 
-        }
-        collection.insert(newUrl, {safe:true}, (err, result) => {
+    db.collection('searches', (err, collection) => {
+        collection.find({}, {"_id": 0}).sort({"created_at": -1}).limit(10).toArray((err, docs) => {
             if (!err) {
-                console.log('Added doc: ', result);
-                const doc = result.ops[0];
-                const urlId = doc._id.toString().split('').filter((c, i) => i % 3 === 0).join(''); // Take every third char from _id
-                doc['short_url'] = 'http://mc-short.herokuapp.com/' + urlId; 
-                collection.update({'_id': doc._id}, doc, {safe:true}, (err, result) => {
-                    if (!err) {
-                        console.log('Updated doc: ' + result);
-                        delete doc['_id'];
-                        res.json(response);
-                    } else {
-                        console.log('ERROR:', err);
-                        res.send({"error": "Unable to add URL"})
-                    }
-                });
+                console.log('Added doc: ', docs);
+                res.send(docs);
+            } else {
+                console.log('ERROR:', err);
+                res.send({"error": "Unable to get searches"});
             }
-        })
-    })
+        });
+    });
 }
