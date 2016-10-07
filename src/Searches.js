@@ -1,8 +1,3 @@
-const mongo = require('mongodb');
-const MongoClient = mongo.MongoClient;
-//const MONGO_URL = process.env.MONGOLAB_URI;
-const MONGO_URL = 'localhost:27017/image-search-db';
-
 const fetch = require('node-fetch');
 
 const populateDb = require('./populate-db');
@@ -60,7 +55,6 @@ exports.findRecent = (db, req, res) => {
     db.collection('searches', (err, collection) => {
         collection.find({}, {"_id": 0}).sort({"created_at": -1}).limit(10).toArray((err, docs) => {
             if (!err) {
-                console.log('Added doc: ', docs);
                 res.send(docs);
             } else {
                 console.log('ERROR:', err);
