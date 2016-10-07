@@ -8,8 +8,9 @@ const NUM_RESULTS = 10;
 const FIELDS = 'items(link,image/thumbnailLink,snippet)';
 const REQUEST_BASE = `https://www.googleapis.com/customsearch/v1?cx=${ENGINE_ID}&num=${NUM_RESULTS}&searchType=image&fields=${FIELDS}&key=${API_KEY}`;
 
-const _getResults = (query, start=0) => {
-    const queryString = `&q=${query}&start=${parseInt(start) + 1}`;
+const _getResults = (query, start) => {
+    const startInt = parseInt(start) || 0;
+    const queryString = `&q=${query}&start=${startInt + 1}`;
     const requestUrl = REQUEST_BASE + queryString;
     return fetch(requestUrl);
 };
